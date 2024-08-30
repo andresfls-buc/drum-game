@@ -5,12 +5,15 @@ const buttons = document.querySelectorAll(".drum");
 function handleClick() {
   const buttonInnerHTML = this.innerHTML; // Get the inner HTML of the clicked button
 
-  console.log("Button clicked:", buttonInnerHTML); // Log the button's innerHTML for debugging
+  makeSound(buttonInnerHTML);
+}
 
-  let audioFile = "";
+// Function to make sound based on the key
+function makeSound(key) {
+  let audioFile = ""; // Declare the audioFile variable within this function
 
-  // Determine which sound to play based on the button's innerHTML
-  switch (buttonInnerHTML) {
+  // Determine which sound to play based on the key (button's innerHTML)
+  switch (key) {
     case "w":
       audioFile = "sounds/crash.mp3";
       break;
@@ -33,7 +36,7 @@ function handleClick() {
       audioFile = "sounds/tom-4.mp3";
       break;
     default:
-      console.log("Unknown sound:", buttonInnerHTML); // Log if no matching case is found
+      console.log("Unknown sound:", key); // Log if no matching case is found
       return; // Exit the function if no valid sound is found
   }
 
@@ -44,7 +47,12 @@ function handleClick() {
   audio.play();
 }
 
-// Add event listener to each button
+// Add event listener to each button for mouse clicks
 buttons.forEach((button) => {
   button.addEventListener("click", handleClick);
+});
+
+// Add event listener to the document for keypresses
+document.addEventListener("keypress", function (event) {
+  makeSound(event.key);
 });
