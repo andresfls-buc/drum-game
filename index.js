@@ -6,6 +6,7 @@ function handleClick() {
   const buttonInnerHTML = this.innerHTML; // Get the inner HTML of the clicked button
 
   makeSound(buttonInnerHTML);
+  buttonAnimation(buttonInnerHTML);
 }
 
 // Function to make sound based on the key
@@ -55,4 +56,19 @@ buttons.forEach((button) => {
 // Add event listener to the document for keypresses
 document.addEventListener("keypress", function (event) {
   makeSound(event.key);
+  buttonAnimation(event.key);
 });
+
+// Function to handle button animation
+function buttonAnimation(currentKey) {
+  var activeButton = document.querySelector("." + currentKey);
+
+  if (activeButton) {
+    activeButton.classList.add("pressed");
+
+    // Remove the 'pressed' class after 100 milliseconds
+    setTimeout(function () {
+      activeButton.classList.remove("pressed");
+    }, 100);
+  }
+}
